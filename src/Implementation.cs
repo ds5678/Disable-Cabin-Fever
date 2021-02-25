@@ -1,27 +1,25 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using MelonLoader;
 
 namespace DisableCabinFever
 {
-    internal class Implementation
+    internal class Implementation : MelonMod
     {
-        public const string NAME = "Disable-Cabin-Fever";
-
-        public static void OnLoad()
+        public override void OnApplicationStart()
         {
-            AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
-            Log("Version " + assemblyName.Version);
+            Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
         }
 
         internal static void Log(string message)
         {
-            Debug.LogFormat("[" + NAME + "] {0}", message);
+            MelonLoader.MelonLogger.Log(message);
         }
 
         internal static void Log(string message, params object[] parameters)
         {
-            string preformattedMessage = string.Format("[" + NAME + "] {0}", message);
-            Debug.LogFormat(preformattedMessage, parameters);
+            string preformattedMessage = string.Format( message, parameters);
+            Log(preformattedMessage);
         }
     }
 }
